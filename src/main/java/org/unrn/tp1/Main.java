@@ -1,17 +1,28 @@
 package org.unrn.tp1;
 
-//TIP Para <b>ejecutar</b> el código, presiona <shortcut actionId="Run"/> o
-// haga clic en el icono <icon src="AllIcons.Actions.Execute"/> del margen.
+import java.time.LocalDate;
+
 public class Main {
     static void main() {
-        //TIP Pulse <shortcut actionId="ShowIntentionActions"/> con el cursor sobre el texto resaltado
-        // para ver cómo IntelliJ IDEA sugiere corregirlo.
-        IO.println(String.format("Hello and welcome!"));
+        //creamos un concurso
+        Concurso avionesAEscalas = new Concurso("Concurso de Aviones a escalas",
+                LocalDate.of(2026, 3, 13),
+                LocalDate.of(2026, 3, 31));
+        //creamos 3 participantes
+        Participante p1 = new Participante("pepe");
+        Participante p2 = new Participante("eze");
+        Participante p3 = new Participante("juan");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Presione <shortcut actionId="Debug"/> para comenzar a depurar su código. Hemos establecido un punto de interrupción <icon src="AllIcons.Debugger.Db_set_breakpoint"/>.
-            // para ti, pero siempre puedes añadir más pulsando <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+        //inscripcion el primer dia
+        avionesAEscalas.inscribir(p1, LocalDate.of(2026, 3, 13));
+
+        //inscripcion dentro del rango
+        avionesAEscalas.inscribir(p2, LocalDate.of(2026, 3, 20));
+
+        //inscripcion fuera de rango
+        avionesAEscalas.inscribir(p3, LocalDate.of(2026, 4, 1));
+
+        //verificamos puntos usando el arreglo de inscriptos del concurso usando el metodo obtenerResultados
+        avionesAEscalas.obtenerResultados();
     }
 }
