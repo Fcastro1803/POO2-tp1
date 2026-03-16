@@ -1,4 +1,4 @@
-package org.unrn.tp1;
+package org.unrn.tp1.ejer1;
 
 import org.junit.jupiter.api.Test;
 
