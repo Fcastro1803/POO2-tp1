@@ -7,11 +7,11 @@ public class Main {
         //creamos un concurso
         Concurso avionesAEscalas = new Concurso("Concurso de Aviones a escalas",
                 LocalDate.of(2026, 3, 13),
-                LocalDate.of(2026, 3, 31));
+                LocalDate.of(2026, 3, 31), 1);
         //creamos 3 participantes
-        Participante p1 = new Participante("pepe");
-        Participante p2 = new Participante("eze");
-        Participante p3 = new Participante("juan");
+        Participante p1 = new Participante("pepe", 1);
+        Participante p2 = new Participante("eze", 2);
+        Participante p3 = new Participante("juan", 3);
 
         //inscripcion el primer dia
         avionesAEscalas.inscribir(p1, LocalDate.of(2026, 3, 13));
