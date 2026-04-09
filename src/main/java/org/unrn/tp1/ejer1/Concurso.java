@@ -10,13 +10,15 @@ public class Concurso {
     private List<Participante> inscriptos;
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaFinInscripcion;
+    private RegistroInscripcion registro;
 
-    public Concurso(String name, LocalDate inicio, LocalDate fin, int id) {
+    public Concurso(String name, LocalDate inicio, LocalDate fin, int id, RegistroInscripcion registro) {
         this.name = name;
         this.fechaInicioInscripcion = inicio;
         this.fechaFinInscripcion = fin;
         this.inscriptos = new ArrayList<>();
         this.id = id;
+        this.registro = registro;
     }
 
     public void inscribir(Participante p, LocalDate fechaInscripcion) {
@@ -25,11 +27,7 @@ public class Concurso {
             return;
         }
         inscriptos.add(p);
-        System.out.println("Participante " + p.getName() + " inscripto exitosamente.");
-        //se guarda el participante en un archivo de texto
-        Files files = new Files();
-        files.guardarParticipanteTxt(p, fechaInscripcion, this);
-        //se le asigna 10 puntos si es el primer dia de inscripcion
+        this.registro.guardar(p, fechaInscripcion, this);
         if (fechaInscripcion.equals(fechaInicioInscripcion)) {
             p.addPoints(10);
             System.out.println("Participante " + p.getName() + " gano 10 puntos por inscribirse el primer dia.");

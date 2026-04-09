@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 import static java.nio.file.Files.exists;
 
-public class Files {
+public class Files implements RegistroInscripcion {
 
     private static void escribirTxt(Participante p, LocalDate fecha, Concurso concurso, FileWriter file, DateTimeFormatter formato) throws IOException {
         file.write(formato.format(fecha) + ", " + p.getId() + ", " + concurso.getId() + "\n");
@@ -16,7 +16,8 @@ public class Files {
         System.out.println("Se escribió en el archivo exitosamente.");
     }
 
-    public void guardarParticipanteTxt(Participante p, LocalDate fecha, Concurso concurso) {
+    @Override
+    public void guardar(Participante p, LocalDate fecha, Concurso concurso) {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
             if (exists(Path.of("concursantes.txt"))) {
