@@ -46,4 +46,11 @@ public class ConcursoTest {
         }
     }
 
+    // Clase interna Mock para evitar el envío de mail|
+    private static class MockEnviadorMail extends EmailService {
+        @Override
+        public void enviarEmailParticipante(Participante participante, String nombreConcurso, LocalDate fecha) {
+        }
+    }
+
 }
