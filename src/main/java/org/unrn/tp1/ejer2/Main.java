@@ -11,41 +11,47 @@ public class Main {
         Mesa mesa3 = new Mesa(3, 0.02);
         Mesa mesa4 = new Mesa(4, 0.05);
 
+        // Instanciamos la persistencia (en este caso, JDBC)
+        // Si quisieramos cambiar a otra forma de persistencia, como archivos,
+        // solo tendriamos que cambiar esta linea y el resto del codigo seguiria funcionando sin cambios.
+        RegistroPedido persistencia = new JdbcRegistroPedido();
+        //RegistroInscripcion persistencia = new Files();
+
         //creamos 4 platos
-        Plato plato1 = new Plato("Pizza", 100);
+        Plato plato1 = new Plato("Pizza", 110);
         //Plato plato3 = new Plato("Ensalada", 60);
         //Plato plato4 = new Plato("Pasta", 120);
         //Plato plato2 = new Plato("Hamburguesa", 80);
 
         //creamos 4 bebidas
-        Bebida bebida1 = new Bebida("Coca-Cola", 10);
+        Bebida bebida1 = new Bebida("Coca-Cola", 20);
         //Bebida bebida2 = new Bebida("Agua", 5);
         //Bebida bebida3 = new Bebida("Cerveza", 25);
         //Bebida bebida4 = new Bebida("Vino", 50);
 
         //creamos un pedido para la mesa1
-        Pedido pedido1 = new Pedido(new ArrayList<>(), new ArrayList<>(), mesa1, LocalDate.of(2026, 5, 20));
+        Pedido pedido1 = new Pedido(new ArrayList<>(), new ArrayList<>(), mesa1, LocalDate.of(2026, 5, 20), persistencia);
         pedido1.agregarPlato(plato1);
         //pedido1.agregarPlato(plato2);
         pedido1.agregarBebida(bebida1);
         //pedido1.agregarBebida(bebida2);
 
         //creamos un pedido para la mesa2
-        Pedido pedido2 = new Pedido(new ArrayList<>(), new ArrayList<>(), mesa2, LocalDate.of(2026, 2, 17));
+        Pedido pedido2 = new Pedido(new ArrayList<>(), new ArrayList<>(), mesa2, LocalDate.of(2026, 2, 17), persistencia);
         pedido2.agregarPlato(plato1);
         //pedido2.agregarPlato(plato4);
         //pedido2.agregarBebida(bebida3);
         pedido2.agregarBebida(bebida1);
 
         //creamos un pedido para la mesa3
-        Pedido pedido3 = new Pedido(new ArrayList<>(), new ArrayList<>(), mesa3, LocalDate.of(2026, 4, 25));
+        Pedido pedido3 = new Pedido(new ArrayList<>(), new ArrayList<>(), mesa3, LocalDate.of(2026, 4, 25), persistencia);
         pedido3.agregarPlato(plato1);
         //pedido3.agregarPlato(plato4);
         pedido3.agregarBebida(bebida1);
         //pedido3.agregarBebida(bebida4);
 
         //creamos un pedido para la mesa4
-        Pedido pedido4 = new Pedido(new ArrayList<>(), new ArrayList<>(), mesa4, LocalDate.now());
+        Pedido pedido4 = new Pedido(new ArrayList<>(), new ArrayList<>(), mesa4, LocalDate.now(), persistencia);
         pedido4.agregarPlato(plato1);
         //pedido4.agregarPlato(plato3);
         //pedido4.agregarBebida(bebida2);

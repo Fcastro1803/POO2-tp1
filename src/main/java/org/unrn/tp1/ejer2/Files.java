@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 import static java.nio.file.Files.exists;
 
-public class Files {
+public class Files implements RegistroPedido {
 
     private static void escribirTxt(FileWriter file, DateTimeFormatter formato, LocalDate fecha, double totalPagar) throws IOException {
         file.write(formato.format(fecha) + " || " + totalPagar + "\n");
@@ -16,7 +16,8 @@ public class Files {
         System.out.println("Se escribió en el archivo exitosamente.");
     }
 
-    public void guardarCobroTxt(double totalPagar, LocalDate fechaCobro) {
+    @Override
+    public void guardarPedido(double totalPagar, LocalDate fechaCobro) {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
             if (exists(Path.of("cobros.txt"))) {
@@ -31,4 +32,3 @@ public class Files {
         }
     }
 }
-

@@ -15,15 +15,31 @@ public class TarjetaCredito {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public double procesarPago(Pedido pedido) {
+    public static void registrarPedido(Pedido pedido, double totalPagar, String tarjeta) {
+        pedido.registro.guardarPedido(totalPagar, pedido.fechaPedido);
+        EmailService emailSender = new EmailService();
+        emailSender.enviarEmailPedido(pedido.fechaPedido, totalPagar, tarjeta);
+    }
+
+    public static CalcularTotales getCalcularTotales(Pedido pedido) {
         double totalBebidas = 0;
         double totalPlatos = 0;
         totalBebidas = pedido.calcularTotalBebidas();
         totalPlatos = pedido.calcularTotalPlatos();
-        double totalPedido = totalBebidas + totalPlatos;
+        CalcularTotales totales = new CalcularTotales(totalBebidas, totalPlatos);
+        return totales;
+    }
+
+    public double procesarPago(Pedido pedido) {
+        CalcularTotales totales = getCalcularTotales(pedido);
+        double totalPedido = totales.totalBebidas() + totales.totalPlatos();
         double totalPagar = totalPedido + (totalPedido * pedido.mesa.propina);
-        Files files = new Files();
-        files.guardarCobroTxt(totalPagar, pedido.fechaPedido);
+        String tarjeta = "Generica";
+        registrarPedido(pedido, totalPagar, tarjeta);
         return totalPagar;
     }
+
+    public record CalcularTotales(double totalBebidas, double totalPlatos) {
+    }
+
 }
