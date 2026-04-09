@@ -1,16 +1,19 @@
 package org.unrn.tp1.ejer2;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Pedido {
     List<Bebida> bebidas;
     List<Plato> platos;
     Mesa mesa;
+    LocalDate fechaPedido;
 
-    public Pedido(List<Bebida> bebidas, List<Plato> platos, Mesa mesa) {
+    public Pedido(List<Bebida> bebidas, List<Plato> platos, Mesa mesa, LocalDate fechaPedido) {
         this.mesa = mesa;
         this.bebidas = bebidas;
         this.platos = platos;
+        this.fechaPedido = fechaPedido;
     }
 
     //-------------BEBIDAS----------------

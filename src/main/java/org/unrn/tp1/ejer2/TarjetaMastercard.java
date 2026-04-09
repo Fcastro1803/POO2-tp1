@@ -1,6 +1,9 @@
 package org.unrn.tp1.ejer2;
 
+import java.time.LocalDate;
+
 public class TarjetaMastercard extends TarjetaCredito {
+    private LocalDate fechaCobro;
 
     public TarjetaMastercard(String numeroTarjeta, String titular, String fechaVencimiento) {
         super(numeroTarjeta, titular, fechaVencimiento);
@@ -16,6 +19,8 @@ public class TarjetaMastercard extends TarjetaCredito {
         double descuento = totalPlatos * 0.02;
         double totalPedido = (totalPlatos - descuento) + totalBebidas;
         double totalPagar = (totalPedido * pedido.mesa.propina) + totalPedido;
+        Files files = new Files();
+        files.guardarCobroTxt(totalPagar, pedido.fechaPedido);
         return totalPagar;
     }
 }

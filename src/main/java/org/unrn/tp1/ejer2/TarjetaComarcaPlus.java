@@ -1,6 +1,10 @@
 package org.unrn.tp1.ejer2;
 
+import java.time.LocalDate;
+
 public class TarjetaComarcaPlus extends TarjetaCredito {
+
+    private LocalDate fechaCobro;
 
     public TarjetaComarcaPlus(String numeroTarjeta, String titular, String fechaVencimiento) {
         super(numeroTarjeta, titular, fechaVencimiento);
@@ -18,6 +22,8 @@ public class TarjetaComarcaPlus extends TarjetaCredito {
         double descuento = totalPedido * 0.02;
         double totalPedidoConDescuento = totalPedido - descuento;
         double totalPagar = (totalPedidoConDescuento * pedido.mesa.propina) + totalPedidoConDescuento;
+        Files files = new Files();
+        files.guardarCobroTxt(totalPagar, pedido.fechaPedido);
         return totalPagar;
     }
 }

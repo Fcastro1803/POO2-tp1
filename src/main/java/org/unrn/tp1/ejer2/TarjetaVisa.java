@@ -1,7 +1,10 @@
 package org.unrn.tp1.ejer2;
 
+import java.time.LocalDate;
+
 //esat es clase hija de TarjetaCredito
 public class TarjetaVisa extends TarjetaCredito {
+    private LocalDate fechaCobro;
 
     public TarjetaVisa(String numeroTarjeta, String titular, String fechaVencimiento) {
         super(numeroTarjeta, titular, fechaVencimiento);
@@ -17,6 +20,8 @@ public class TarjetaVisa extends TarjetaCredito {
         double descuento = totalBebidas * 0.03;
         double totalPedido = (totalBebidas - descuento) + totalPlatos;
         double totalPagar = (totalPedido * pedido.mesa.propina) + totalPedido;
+        Files files = new Files();
+        files.guardarCobroTxt(totalPagar, pedido.fechaPedido);
         return totalPagar;
     }
 }
