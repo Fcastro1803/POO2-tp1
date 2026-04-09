@@ -4,14 +4,11 @@ import java.sql.*;
 import java.time.LocalDate;
 
 public class JdbcRegistroInscripcion implements RegistroInscripcion {
-    private String url;
-    private String user;
-    private String password;
+    private String url = "jdbc:mysql://localhost:3306/concursos_db";
+    private String user = "root";
+    private String password = "root";
 
-    public JdbcRegistroInscripcion(String url, String user, String password) {
-        this.url = url;
-        this.user = user;
-        this.password = password;
+    public JdbcRegistroInscripcion() {
     }
 
     @Override

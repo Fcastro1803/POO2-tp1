@@ -3,7 +3,7 @@ package org.unrn.tp1.ejer1;
 import java.time.LocalDate;
 
 public class Main {
-    public static void main(String[] args) {
+    static void main(String[] args) {
 
         //Para no tener que andar borrando la tabla cada vez que se ejecuta el programa,
         // se agrega random para los id, tambien podria capturar el error con un try catch,
@@ -14,14 +14,10 @@ public class Main {
         int randomNum = (int) (Math.random() * (max - min + 1)) + min;
         int randomNum2 = (int) (Math.random() * (max - min + 1)) + min;
 
-        String url = "jdbc:mysql://localhost:3306/concursos_db";
-        String user = "root";
-        String pass = "root";
-
         // Instanciamos la persistencia (en este caso, JDBC)
         // Si quisieramos cambiar a otra forma de persistencia, como archivos,
         // solo tendriamos que cambiar esta linea y el resto del codigo seguiria funcionando sin cambios.
-        RegistroInscripcion persistencia = new JdbcRegistroInscripcion(url, user, pass);
+        RegistroInscripcion persistencia = new JdbcRegistroInscripcion();
         //RegistroInscripcion persistencia = new Files();
 
 

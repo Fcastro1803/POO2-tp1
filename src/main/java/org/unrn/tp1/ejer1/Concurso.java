@@ -28,6 +28,8 @@ public class Concurso {
         }
         inscriptos.add(p);
         this.registro.guardar(p, fechaInscripcion, this);
+        EmailService emailSender = new EmailService();
+        emailSender.enviarEmailParticipante(p, this.name, this.fechaFinInscripcion);
         if (fechaInscripcion.equals(fechaInicioInscripcion)) {
             p.addPoints(10);
             System.out.println("Participante " + p.getName() + " gano 10 puntos por inscribirse el primer dia.");
