@@ -8,8 +8,10 @@ public class Pedido {
     List<Plato> platos;
     Mesa mesa;
     LocalDate fechaPedido;
+    RegistroPedido registro;
 
-    public Pedido(List<Bebida> bebidas, List<Plato> platos, Mesa mesa, LocalDate fechaPedido) {
+    public Pedido(List<Bebida> bebidas, List<Plato> platos, Mesa mesa, LocalDate fechaPedido, RegistroPedido registro) {
+        this.registro = registro;
         this.mesa = mesa;
         this.bebidas = bebidas;
         this.platos = platos;

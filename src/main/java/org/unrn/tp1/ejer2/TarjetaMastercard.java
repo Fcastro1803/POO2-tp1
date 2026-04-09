@@ -11,16 +11,11 @@ public class TarjetaMastercard extends TarjetaCredito {
 
     @Override
     public double procesarPago(Pedido pedido) {
-        //Los pagos con tarjeta de crédito Mastercard tienen un 2% de descuento sobre el costo total de los platos principales.
-        double totalBebidas = 0;
-        double totalPlatos = 0;
-        totalBebidas = pedido.calcularTotalBebidas();
-        totalPlatos = pedido.calcularTotalPlatos();
-        double descuento = totalPlatos * 0.02;
-        double totalPedido = (totalPlatos - descuento) + totalBebidas;
+        CalcularTotales totales = getCalcularTotales(pedido);
+        double descuento = totales.totalPlatos() * 0.02;
+        double totalPedido = (totales.totalPlatos() - descuento) + totales.totalBebidas();
         double totalPagar = (totalPedido * pedido.mesa.propina) + totalPedido;
-        Files files = new Files();
-        files.guardarCobroTxt(totalPagar, pedido.fechaPedido);
+        registrarPedido(pedido, totalPagar);
         return totalPagar;
     }
 }
