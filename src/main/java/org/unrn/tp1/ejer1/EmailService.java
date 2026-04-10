@@ -9,7 +9,7 @@ import io.mailtrap.model.request.emails.MailtrapMail;
 import java.time.LocalDate;
 import java.util.List;
 
-public class EmailService {
+public class EmailService implements ServiceMail {
 
     private static final String TOKEN = "67c055987384fdea4f384d862678a264";
     private static final Long INBOX_ID = 4531952L;
@@ -26,6 +26,7 @@ public class EmailService {
         this.client = MailtrapClientFactory.createMailtrapClient(config);
     }
 
+    @Override
     public void enviarEmailParticipante(Participante participante, String nombreConcurso, LocalDate fecha) {
         String mensaje = String.format(
                 "Participante: %s\nID: %d\nConcurso: %s\nFecha: %s",

@@ -11,14 +11,16 @@ public class Concurso {
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaFinInscripcion;
     private RegistroInscripcion registro;
+    private ServiceMail servicioEmail;
 
-    public Concurso(String name, LocalDate inicio, LocalDate fin, int id, RegistroInscripcion registro) {
+    public Concurso(String name, LocalDate inicio, LocalDate fin, int id, RegistroInscripcion registro, ServiceMail servicioEmail) {
         this.name = name;
         this.fechaInicioInscripcion = inicio;
         this.fechaFinInscripcion = fin;
         this.inscriptos = new ArrayList<>();
         this.id = id;
         this.registro = registro;
+        this.servicioEmail = servicioEmail;
     }
 
     public void inscribir(Participante p, LocalDate fechaInscripcion) {
@@ -28,8 +30,7 @@ public class Concurso {
         }
         inscriptos.add(p);
         this.registro.guardar(p, fechaInscripcion, this);
-        EmailService emailSender = new EmailService();
-        emailSender.enviarEmailParticipante(p, this.name, this.fechaFinInscripcion);
+        this.servicioEmail.enviarEmailParticipante(p, this.name, this.fechaFinInscripcion);
         if (fechaInscripcion.equals(fechaInicioInscripcion)) {
             p.addPoints(10);
             System.out.println("Participante " + p.getName() + " gano 10 puntos por inscribirse el primer dia.");

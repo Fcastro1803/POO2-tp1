@@ -20,6 +20,7 @@ public class Main {
         RegistroInscripcion persistencia = new JdbcRegistroInscripcion();
         //RegistroInscripcion persistencia = new Files();
 
+        EmailService email = new EmailService();
 
         // Instanciamos el Concurso inyectando la persistencia
         Concurso avionesAEscalas = new Concurso(
@@ -27,7 +28,7 @@ public class Main {
                 LocalDate.of(2026, 3, 13),
                 LocalDate.of(2026, 3, 31),
                 randomNum,
-                persistencia
+                persistencia, email
         );
 
         // Instanciamos los modelos de datos (Participantes)

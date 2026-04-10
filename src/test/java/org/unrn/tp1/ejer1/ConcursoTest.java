@@ -11,7 +11,8 @@ public class ConcursoTest {
     void testInscripcion() {
         Concurso avionesAEscalas = new Concurso("Concurso de Aviones a escalas",
                 LocalDate.of(2026, 3, 13),
-                LocalDate.of(2026, 3, 31), 1, new MockRegistroInscripcion());
+                LocalDate.of(2026, 3, 31), 1, new MockRegistroInscripcion(),
+                new MockServicioEmail());
         Participante p1 = new Participante("eze", 1);
         avionesAEscalas.inscribir(p1, LocalDate.of(2026, 3, 20));
         assert avionesAEscalas.getInscriptos().contains(p1) : "El participante no se inscribio correctamente";
@@ -22,7 +23,8 @@ public class ConcursoTest {
     void testInscripcionPrimerDia() {
         Concurso avionesAEscalas = new Concurso("Concurso de Autos a escalas",
                 LocalDate.of(2026, 3, 13),
-                LocalDate.of(2026, 3, 31), 2, new MockRegistroInscripcion());
+                LocalDate.of(2026, 3, 31), 2, new MockRegistroInscripcion(),
+                new MockServicioEmail());
         Participante p1 = new Participante("pepe", 2);
         avionesAEscalas.inscribir(p1, LocalDate.of(2026, 3, 13));
         assert p1.getPoints() == 10 : "El participante no obtuvo los puntos correspondientes por inscribirse el primer dia";
@@ -33,7 +35,8 @@ public class ConcursoTest {
     void testInscripcionFueraDeRango() {
         Concurso avionesAEscalas = new Concurso("Concurso de Aviones a escalas",
                 LocalDate.of(2026, 3, 13),
-                LocalDate.of(2026, 3, 31), 3, new MockRegistroInscripcion());
+                LocalDate.of(2026, 3, 31), 3, new MockRegistroInscripcion(),
+                new MockServicioEmail());
         Participante p1 = new Participante("juan", 3);
         avionesAEscalas.inscribir(p1, LocalDate.of(2026, 4, 1));
         assert !avionesAEscalas.getInscriptos().contains(p1) : "El participante se inscribio fuera del rango de fechas permitido";
@@ -46,10 +49,11 @@ public class ConcursoTest {
         }
     }
 
-    // Clase interna Mock para evitar el envío de mail|
-    private static class MockEnviadorMail extends EmailService {
+    // Mock para ServicioEmail
+    private static class MockServicioEmail implements ServiceMail {
         @Override
-        public void enviarEmailParticipante(Participante participante, String nombreConcurso, LocalDate fecha) {
+        public void enviarEmailParticipante(Participante p, String nombreConcurso, LocalDate fechaFin) {
+            // No hace nada - evita envíos reales durante tests
         }
     }
 
