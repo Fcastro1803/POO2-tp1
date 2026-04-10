@@ -12,7 +12,7 @@ public class Participante {
     }
 
     public boolean tienePointsDeprimerDia(int puntos) {
-        return this.points >= puntos;  // o la lógica que corresponda
+        return this.points >= puntos;
     }
 
     public void addPoints(int points) {
