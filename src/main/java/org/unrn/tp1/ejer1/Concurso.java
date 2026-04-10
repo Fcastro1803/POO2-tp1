@@ -34,6 +34,10 @@ public class Concurso {
         }
     }
 
+    public boolean estaInscrito(Participante p) {
+        return inscriptos.contains(p);
+    }
+
     public void obtenerResultados() {
         for (Participante p : inscriptos) {
             System.out.println("Participante: " + p.getName() + ", Puntos: " + p.getPoints());
