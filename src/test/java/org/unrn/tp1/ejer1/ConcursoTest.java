@@ -4,9 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class ConcursoTest {
 
-    //este test verifica que un participante se inscribe a un concurso
+    // Test que verifica que un participante se inscribe a un concurso
     @Test
     void testInscripcion() {
         Concurso avionesAEscalas = new Concurso("Concurso de Aviones a escalas",
@@ -14,10 +17,10 @@ public class ConcursoTest {
                 LocalDate.of(2026, 3, 31), 1, new MockRegistroInscripcion());
         Participante p1 = new Participante("eze", 1);
         avionesAEscalas.inscribir(p1, LocalDate.of(2026, 3, 20));
-        assert avionesAEscalas.getInscriptos().contains(p1) : "El participante no se inscribio correctamente";
+        assertTrue(avionesAEscalas.estaInscrito(p1), "El participante no se inscribio correctamente");
     }
 
-    //este test verifica que un participante se incribe a un concurso el primer dia de inscripcion y obtiene los puntos correspondientes
+    // Test que verifica inscripción el primer día
     @Test
     void testInscripcionPrimerDia() {
         Concurso avionesAEscalas = new Concurso("Concurso de Autos a escalas",
@@ -25,10 +28,10 @@ public class ConcursoTest {
                 LocalDate.of(2026, 3, 31), 2, new MockRegistroInscripcion());
         Participante p1 = new Participante("pepe", 2);
         avionesAEscalas.inscribir(p1, LocalDate.of(2026, 3, 13));
-        assert p1.getPoints() == 10 : "El participante no obtuvo los puntos correspondientes por inscribirse el primer dia";
+        assertTrue(p1.tienePointsDeprimerDia(10), "El participante no obtuvo los puntos correspondientes por inscribirse el primer dia");
     }
 
-    //este test verifica que un participante no se inscribe a un concurso fuera del rango de fechas permitido
+    // Test que verifica que no se inscribe fuera de rango
     @Test
     void testInscripcionFueraDeRango() {
         Concurso avionesAEscalas = new Concurso("Concurso de Aviones a escalas",
@@ -36,14 +39,12 @@ public class ConcursoTest {
                 LocalDate.of(2026, 3, 31), 3, new MockRegistroInscripcion());
         Participante p1 = new Participante("juan", 3);
         avionesAEscalas.inscribir(p1, LocalDate.of(2026, 4, 1));
-        assert !avionesAEscalas.getInscriptos().contains(p1) : "El participante se inscribio fuera del rango de fechas permitido";
+        assertFalse(avionesAEscalas.estaInscrito(p1), "El participante se inscribio fuera del rango de fechas permitido");
     }
 
-    // Clase interna Mock para evitar conexión a BD en tests
     private static class MockRegistroInscripcion implements RegistroInscripcion {
         @Override
         public void guardar(Participante p, LocalDate fecha, Concurso c) {
         }
     }
-
 }
