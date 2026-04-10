@@ -10,13 +10,13 @@ public class TarjetaMastercard extends TarjetaCredito {
     }
 
     @Override
-    public double procesarPago(Pedido pedido) {
+    public double procesarPago(Pedido pedido, ServiceMail email) {
         CalcularTotales totales = getCalcularTotales(pedido);
         double descuento = totales.totalPlatos() * 0.02;
         double totalPedido = (totales.totalPlatos() - descuento) + totales.totalBebidas();
         double totalPagar = (totalPedido * pedido.mesa.propina) + totalPedido;
         String tarjeta = "Mastercard";
-        registrarPedido(pedido, totalPagar, tarjeta);
+        registrarPedido(pedido, totalPagar, tarjeta, email);
         return totalPagar;
     }
 }

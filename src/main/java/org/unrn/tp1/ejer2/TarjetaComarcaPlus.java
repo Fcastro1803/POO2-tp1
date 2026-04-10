@@ -11,14 +11,14 @@ public class TarjetaComarcaPlus extends TarjetaCredito {
     }
 
     @Override
-    public double procesarPago(Pedido pedido) {
+    public double procesarPago(Pedido pedido, ServiceMail email) {
         CalcularTotales totales = getCalcularTotales(pedido);
         double totalPedido = (totales.totalPlatos() + totales.totalBebidas());
         double descuento = totalPedido * 0.02;
         double totalPedidoConDescuento = totalPedido - descuento;
         double totalPagar = (totalPedidoConDescuento * pedido.mesa.propina) + totalPedidoConDescuento;
         String tarjeta = "Comarca Plus";
-        registrarPedido(pedido, totalPagar, tarjeta);
+        registrarPedido(pedido, totalPagar, tarjeta, email);
         return totalPagar;
     }
 }

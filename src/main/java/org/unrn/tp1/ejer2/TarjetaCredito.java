@@ -15,10 +15,9 @@ public class TarjetaCredito {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public static void registrarPedido(Pedido pedido, double totalPagar, String tarjeta) {
+    public static void registrarPedido(Pedido pedido, double totalPagar, String tarjeta, ServiceMail email) {
         pedido.registro.guardarPedido(totalPagar, pedido.fechaPedido);
-        EmailService emailSender = new EmailService();
-        emailSender.enviarEmailPedido(pedido.fechaPedido, totalPagar, tarjeta);
+        email.enviarEmailPedido(pedido.fechaPedido, totalPagar, tarjeta);
     }
 
     public static CalcularTotales getCalcularTotales(Pedido pedido) {
@@ -30,12 +29,12 @@ public class TarjetaCredito {
         return totales;
     }
 
-    public double procesarPago(Pedido pedido) {
+    public double procesarPago(Pedido pedido, ServiceMail email) {
         CalcularTotales totales = getCalcularTotales(pedido);
         double totalPedido = totales.totalBebidas() + totales.totalPlatos();
         double totalPagar = totalPedido + (totalPedido * pedido.mesa.propina);
         String tarjeta = "Generica";
-        registrarPedido(pedido, totalPagar, tarjeta);
+        registrarPedido(pedido, totalPagar, tarjeta, email);
         return totalPagar;
     }
 

@@ -16,7 +16,8 @@ public class PedidosTest {
         pedido1.agregarPlato(new Plato("Pizza", 100));
         pedido1.agregarBebida(new Bebida("Coca-Cola", 50));
         TarjetaVisa tarjetaVisa = new TarjetaVisa("1234567890123456", "Juan Perez", "12/28");
-        assertEquals(155.92, tarjetaVisa.procesarPago(pedido1), 0.01);
+        assertEquals(155.92, tarjetaVisa.procesarPago(pedido1,
+                new MockServicioEmail()), 0.01);
     }
 
     @Test
@@ -26,7 +27,8 @@ public class PedidosTest {
         pedido1.agregarPlato(new Plato("Pizza", 100));
         pedido1.agregarBebida(new Bebida("Coca-Cola", 50));
         TarjetaMastercard tarjetaMastercard = new TarjetaMastercard("1234567890123456", "Juan Perez", "12/28");
-        assertEquals(152.44, tarjetaMastercard.procesarPago(pedido1), 0.01);
+        assertEquals(152.44, tarjetaMastercard.procesarPago(pedido1,
+                new MockServicioEmail()), 0.01);
     }
 
     @Test
@@ -36,7 +38,8 @@ public class PedidosTest {
         pedido1.agregarPlato(new Plato("Pizza", 100));
         pedido1.agregarBebida(new Bebida("Coca-Cola", 50));
         TarjetaComarcaPlus tarjetaComarcaPlus = new TarjetaComarcaPlus("1234567890123456", "Juan Perez", "12/28");
-        assertEquals(149.94, tarjetaComarcaPlus.procesarPago(pedido1), 0.01);
+        assertEquals(149.94, tarjetaComarcaPlus.procesarPago(pedido1,
+                new MockServicioEmail()), 0.01);
     }
 
     @Test
@@ -46,13 +49,21 @@ public class PedidosTest {
         pedido1.agregarPlato(new Plato("Pizza", 100));
         pedido1.agregarBebida(new Bebida("Coca-Cola", 50));
         TarjetaCredito tarjetaViedma = new TarjetaCredito("1234567890123456", "Juan Perez", "12/28");
-        assertEquals(157.50, tarjetaViedma.procesarPago(pedido1), 0.01);
+        assertEquals(157.50, tarjetaViedma.procesarPago(pedido1,
+                new MockServicioEmail()), 0.01);
     }
 
     // Clase interna Mock para evitar conexión a BD en tests
     private static class MockRegistroPedidos implements RegistroPedido {
         @Override
         public void guardarPedido(double totalPagar, LocalDate fecha) {
+        }
+    }
+
+    // Mock para ServicioEmail
+    private static class MockServicioEmail implements ServiceMail {
+        @Override
+        public void enviarEmailPedido(LocalDate fecha, double totalPagar, String tarjeta) {
         }
     }
 }

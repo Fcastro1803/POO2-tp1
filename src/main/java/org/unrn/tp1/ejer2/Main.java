@@ -17,6 +17,8 @@ public class Main {
         RegistroPedido persistencia = new JdbcRegistroPedido();
         //RegistroInscripcion persistencia = new Files();
 
+        EmailService email = new EmailService();
+
         //creamos 4 platos
         Plato plato1 = new Plato("Pizza", 110);
         //Plato plato3 = new Plato("Ensalada", 60);
@@ -64,10 +66,10 @@ public class Main {
         TarjetaCredito tarjetaCredito = new TarjetaCredito("1111222233334444", "Ana Rodriguez", "09/28");
 
         //calculamos el total del pedido
-        tarjetaVisa.procesarPago(pedido1);
-        tarjetaMastercard.procesarPago(pedido2);
-        tarjetaComarcaPlus.procesarPago(pedido3);
-        tarjetaCredito.procesarPago(pedido4);
+        tarjetaVisa.procesarPago(pedido1, email);
+        tarjetaMastercard.procesarPago(pedido2, email);
+        tarjetaComarcaPlus.procesarPago(pedido3, email);
+        tarjetaCredito.procesarPago(pedido4, email);
 
     }
 }
